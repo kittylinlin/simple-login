@@ -1,30 +1,32 @@
-docker run -p 8080:8888 simple-login-image
-
-docker run -t -i nikolaik/python-nodejs:python3.8-nodejs12-slim  /bin/bash
+## Simple Site for Practicing JWT Token
 
 
-# venv
-https://docs.python.org/zh-tw/3/tutorial/venv.html
+### Requirement
+- python3
+- graphene-django
+- djongo
+- bcrypt
+- graphene-federation
 
 
+### Environment Variable
+- MONGODB_HOST
+- JWT_SECRET
+- JWT_ISSUER
+- JWT_AUDIENCE
+
+
+### Development Server
+```
 python3 manage.py runserver 8080
+```
 
+
+### Interactive Python Shell
+```
 python3 manage.py shell
+```
 
 
-https://docs.graphene-python.org/projects/django/en/latest/tutorial-plain/
-https://docs.djangoproject.com/en/3.1/intro/tutorial01/
-https://nesdis.github.io/djongo/djongo-deep-dive/
-
-
-## package
-graphene-django
-djongo
-bcrypt
-
-
-## env
-MONGODB_HOST
-JWT_SECRET
-JWT_ISSUER
-JWT_AUDIENCE
+### Reference
+https://github.com/mirumee/saleor/tree/0183cc0e8f8af76b490e992e1a680975cab7d115

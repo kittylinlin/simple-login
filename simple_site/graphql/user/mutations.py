@@ -1,34 +1,12 @@
 import jwt
 import bcrypt
 import graphene
-from djongo import models
+from .models import User
 from bson import ObjectId
 from django.conf import settings
-from graphql_api.models import User
 from datetime import datetime, timedelta
 from django.db.utils import DatabaseError
-from graphene_django import DjangoObjectType
 from django.core.exceptions import ObjectDoesNotExist
-from graphene_django.converter import convert_django_field
-
-
-@convert_django_field.register(models.ObjectIdField)
-def convert_objectId_to_str(field, registry=None):
-    return graphene.ID()
-
-
-class UserType(DjangoObjectType):
-    class Meta:
-        model = User
-        convert_choices_to_enum = False
-
-
-class Query(graphene.ObjectType):
-    users = graphene.List(UserType)
-
-    def resolve_users(root, info):
-        print(info.context.user_id)
-        return User.objects.all()
 
 
 class SignUp(graphene.Mutation):
@@ -145,12 +123,3 @@ class RefreshToken(graphene.Mutation):
 
         access_token = jwt.encode(payload, jwt_secret, algorithm='HS256').decode('utf-8')
         return RefreshToken(access_token=access_token)
-
-
-class Mutation(graphene.ObjectType):
-    sign_up = SignUp.Field()
-    login = Login.Field()
-    refresh_token = RefreshToken.Field()
-
-
-schema = graphene.Schema(query=Query, mutation=Mutation)

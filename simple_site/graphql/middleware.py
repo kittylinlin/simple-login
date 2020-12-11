@@ -3,7 +3,7 @@ from bson import ObjectId
 from django.conf import settings
 
 
-class JWTAuthorizationMiddleware(object):
+class JWTMiddleware(object):
     def __init__(self):
         pass
 
